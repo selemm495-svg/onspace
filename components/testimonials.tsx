@@ -2,14 +2,14 @@
 
 import { useState } from 'react'
 import { ChevronRight, ChevronLeft } from 'lucide-react'
-import { testimonials } from '@/lib/data'
+import type { Testimonial } from '@/lib/data'
 
-export function Testimonials() {
+export function Testimonials({ items }: { items: Testimonial[] }) {
   const [start, setStart] = useState(0)
   const perView = 3
-  const maxStart = Math.max(0, testimonials.length - perView)
+  const maxStart = Math.max(0, items.length - perView)
 
-  const visible = testimonials.slice(start, start + perView)
+  const visible = items.slice(start, start + perView)
 
   return (
     <section className="bg-lavender/50 py-20">

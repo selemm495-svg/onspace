@@ -3,14 +3,25 @@ import { Footer } from '@/components/footer'
 import { AIBuilder } from '@/components/ai-builder'
 import { ExampleChips } from '@/components/example-chips'
 import { FeatureGrid } from '@/components/feature-grid'
+import { ProjectsSection } from '@/components/projects-section'
 import { Testimonials } from '@/components/testimonials'
 import { PricingSection } from '@/components/pricing-section'
 import { FAQ } from '@/components/faq'
 import { FinalCTA } from '@/components/final-cta'
-import { agenticFaq, aiModels } from '@/lib/data'
+import { agenticFaq, aiModels, testimonials as staticTestimonials, type Testimonial } from '@/lib/data'
+import { query, initDb } from '@/lib/db'
 import { Sparkles } from 'lucide-react'
 
-export default function AgenticPage() {
+export default async function AgenticPage() {
+  await initDb()
+  let testimonialsData: Testimonial[] = staticTestimonials
+  try {
+    const { rows } = await query('SELECT text, name, role FROM testimonials ORDER BY id')
+    if (rows.length > 0) testimonialsData = rows
+  } catch {
+    // fallback to static
+  }
+
   return (
     <main className="min-h-screen">
       <Navbar credits={20} />
@@ -30,6 +41,7 @@ export default function AgenticPage() {
             <AIBuilder
               placeholder="اطلب من OnSpace يعملّك تطبيق صور بالذكاء الاصطناعي..."
               controls={['visibility', 'platform']}
+              type="agentic"
             />
             <ExampleChips />
           </div>
@@ -91,7 +103,8 @@ export default function AgenticPage() {
       </section>
 
       <FeatureGrid />
-      <Testimonials />
+      <ProjectsSection type="agentic" />
+      <Testimonials items={testimonialsData} />
       <PricingSection />
       <FAQ items={agenticFaq} />
       <FinalCTA />

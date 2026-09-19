@@ -2,11 +2,11 @@
 
 import { useState } from 'react'
 import { Eye } from 'lucide-react'
-import { communityProjects } from '@/lib/data'
+import type { CommunityProject } from '@/lib/data'
 
-export function CommunityGrid() {
+export function CommunityGrid({ projects }: { projects: CommunityProject[] }) {
   const [showAll, setShowAll] = useState(false)
-  const visible = showAll ? communityProjects : communityProjects.slice(0, 8)
+  const visible = showAll ? projects : projects.slice(0, 8)
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
@@ -34,7 +34,7 @@ export function CommunityGrid() {
         ))}
       </div>
 
-      {!showAll && (
+      {!showAll && projects.length > 8 && (
         <div className="mt-8 text-center">
           <button
             onClick={() => setShowAll(true)}

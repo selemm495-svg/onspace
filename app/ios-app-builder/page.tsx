@@ -3,10 +3,11 @@ import { Footer } from '@/components/footer'
 import { AIBuilder } from '@/components/ai-builder'
 import { FAQ } from '@/components/faq'
 import { FinalCTA } from '@/components/final-cta'
+import { ProjectsSection } from '@/components/projects-section'
 import { generalFaq } from '@/lib/data'
-import { Plus, Smartphone } from 'lucide-react'
+import { Smartphone } from 'lucide-react'
 
-export default function IosPage() {
+export default async function IosPage() {
   return (
     <main className="min-h-screen">
       <Navbar credits={1500} />
@@ -33,42 +34,21 @@ export default function IosPage() {
             <AIBuilder
               placeholder="اطلب من OnSpace يعملّك تطبيق يومي..."
               controls={['backend', 'visibility']}
+              type="mobile"
             />
           </div>
         </div>
       </section>
 
-      {/* Projects */}
-      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <div className="flex items-center gap-3">
-          <span className="h-10 w-10 rounded-full bg-gradient-to-br from-violet via-fuchsia-500 to-orange-400" />
-          <div className="text-right">
-            <p className="text-sm font-bold text-foreground">مشاريع user_05668</p>
-            <p className="text-xs text-muted-foreground">مشروع واحد</p>
-          </div>
-        </div>
+      <ProjectsSection type="mobile" />
 
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="overflow-hidden rounded-2xl border border-border bg-neutral-900 p-4 text-white shadow-sm transition-transform hover:-translate-y-1">
-            <p className="mb-3 text-right text-sm font-bold">الرئيسية</p>
-            <div className="space-y-2">
-              <div className="h-16 rounded-lg bg-white/5" />
-              <div className="grid grid-cols-2 gap-2">
-                <div className="h-10 rounded-lg bg-white/5" />
-                <div className="h-10 rounded-lg bg-white/5" />
-              </div>
-            </div>
-          </div>
-
-          <button className="flex min-h-44 items-center justify-center rounded-2xl border border-dashed border-border bg-muted/40 text-sm font-semibold text-muted-foreground transition-colors hover:border-violet/40 hover:text-violet">
-            <Plus className="ml-1 h-4 w-4" /> مشروع جديد
-          </button>
-
+      {/* How-to cards */}
+      <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
+        <div className="grid gap-5 sm:grid-cols-2">
           <div className="flex min-h-44 flex-col justify-center rounded-2xl bg-fuchsia-200 p-6 text-center">
             <span className="mx-auto mb-3 rounded-full bg-white px-3 py-1 text-xs font-bold text-foreground">إزاي</span>
             <p className="text-lg font-black leading-tight text-foreground">تبني تطبيق يكسب فلوس من غير كود؟</p>
           </div>
-
           <div className="flex min-h-44 flex-col justify-center rounded-2xl bg-cyan-200 p-6 text-center">
             <span className="mx-auto mb-3 rounded-full bg-white px-3 py-1 text-xs font-bold text-foreground">إزاي</span>
             <p className="text-lg font-black leading-tight text-foreground">تبني قاعدة بيانات مع Spaces</p>

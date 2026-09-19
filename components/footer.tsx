@@ -1,6 +1,16 @@
 import Link from 'next/link'
 import { Code2, Play, Mail } from 'lucide-react'
 import { Logo } from '@/components/navbar'
+import { NewsletterForm } from '@/components/newsletter-form'
+
+const linkHrefs: Record<string, string> = {
+  'الأسعار': '/pricing',
+  'المدونة': '/blog',
+  'سجل التغييرات': '/changelog',
+  'باني تطبيقات الموبايل': '/ios-app-builder',
+  'باني تطبيقات الويب': '/ai-website-builder',
+  'باني التطبيقات الذكي': '/agentic-app-builder',
+}
 
 const columns = [
   {
@@ -29,6 +39,10 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-muted/40">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+        <div className="mb-10 max-w-md">
+          <NewsletterForm />
+        </div>
+
         <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
           {columns.map((col) => (
             <div key={col.title}>
@@ -36,7 +50,10 @@ export function Footer() {
               <ul className="mt-4 space-y-2.5">
                 {col.links.map((link) => (
                   <li key={link}>
-                    <Link href="#" className="text-sm text-muted-foreground transition-colors hover:text-violet">
+                    <Link
+                      href={linkHrefs[link] || '#'}
+                      className="text-sm text-muted-foreground transition-colors hover:text-violet"
+                    >
                       {link}
                     </Link>
                   </li>

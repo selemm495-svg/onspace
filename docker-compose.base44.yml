@@ -1,4 +1,18 @@
 services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: onspace
+      POSTGRES_PASSWORD: onspace
+      POSTGRES_DB: onspace
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U onspace"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   web:
     image: node:22
     working_dir: /app
@@ -6,11 +20,16 @@ services:
     environment:
       - BASE44_PUBLIC_HOST_SUFFIX=${BASE44_PUBLIC_HOST_SUFFIX}
       - WATCHPACK_POLLING=true
+      - DATABASE_URL=postgresql://onspace:onspace@postgres:5432/onspace
     volumes:
       - .:/app
       - node_modules:/app/node_modules
     ports:
       - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   node_modules:
+  pgdata:

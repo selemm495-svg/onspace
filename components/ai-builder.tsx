@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import {
   Paperclip,
   ArrowUp,
@@ -144,10 +145,13 @@ const frameworkOptions: Option[] = [
 export function AIBuilder({
   placeholder,
   controls = ['visibility', 'platform'],
+  type = 'web',
 }: {
   placeholder: string
   controls?: Array<'framework' | 'backend' | 'visibility' | 'platform'>
+  type?: 'web' | 'mobile' | 'agentic'
 }) {
+  const router = useRouter()
   const [prompt, setPrompt] = useState('')
   const [modalOpen, setModalOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -155,8 +159,8 @@ export function AIBuilder({
   const [backend, setBackend] = useState('cloud')
   const [visibility, setVisibility] = useState('public')
   const [platform, setPlatform] = useState('web')
+  const [createdProject, setCreatedProject] = useState<{ id: number; title: string } | null>(null)
 
-  // expose setter for chips via custom event
   useEffect(() => {
     const handler = (e: Event) => {
       const detail = (e as CustomEvent<string>).detail
@@ -166,14 +170,38 @@ export function AIBuilder({
     return () => window.removeEventListener('onspace:prompt', handler)
   }, [])
 
-  const submit = () => {
+  const submit = async () => {
     if (!prompt.trim() || loading) return
     setLoading(true)
-    setTimeout(() => setLoading(false), 1600)
+    setCreatedProject(null)
+    try {
+      const res = await fetch('/api/projects', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt, type, platform, backend, visibility, framework }),
+      })
+      if (res.ok) {
+        const project = await res.json()
+        setCreatedProject(project)
+        setPrompt('')
+        router.refresh()
+      }
+    } catch {
+      // ignore
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
     <>
+      {createdProject && (
+        <div className="mb-3 flex items-center gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+          <Check className="h-4 w-4 shrink-0" />
+          <span>تم إنشاء &quot;{createdProject.title}&quot; بنجاح! تجده في مشاريعك بالأسفل.</span>
+        </div>
+      )}
+
       <div className="group rounded-3xl border border-border bg-card p-3 shadow-xl shadow-violet/5 transition-shadow focus-within:border-violet/40 focus-within:shadow-violet/15">
         <textarea
           value={prompt}

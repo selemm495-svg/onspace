@@ -61,7 +61,9 @@ export const agenticFeatures: Feature[] = [
   },
 ]
 
-export const testimonials = [
+export type Testimonial = { text: string; name: string; role: string }
+
+export const testimonials: Testimonial[] = [
   { text: 'عملت أول تطبيق ليا وأنا شارب قهوتي الصبح، ونزلته في نفس اليوم.', name: 'كريم صابر', role: 'مصمم منتجات' },
   { text: 'بعدّل من موبايلي وأنا في المواصلات، ده غيّر شغلي بجد.', name: 'آية محمود', role: 'مؤسِّسة ستارت أب' },
   { text: 'عملت نموذج في ٤٥ دقيقة، العميل فاكر إنه خد أسبوع.', name: 'ستيفن قليني', role: 'فريلانسر' },

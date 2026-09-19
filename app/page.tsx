@@ -4,7 +4,8 @@ import { Footer } from '@/components/footer'
 import { Testimonials } from '@/components/testimonials'
 import { PricingSection } from '@/components/pricing-section'
 import { FAQ } from '@/components/faq'
-import { generalFaq, aiModels } from '@/lib/data'
+import { generalFaq, aiModels, testimonials as staticTestimonials, type Testimonial } from '@/lib/data'
+import { query, initDb } from '@/lib/db'
 import {
   CreditCard,
   Sparkles,
@@ -19,7 +20,16 @@ import {
 
 const buildWithIcons = [Apple, Smartphone, Server, Sparkles, Globe, Monitor, CreditCard, Play]
 
-export default function Home() {
+export default async function Home() {
+  await initDb()
+  let testimonialsData: Testimonial[] = staticTestimonials
+  try {
+    const { rows } = await query('SELECT text, name, role FROM testimonials ORDER BY id')
+    if (rows.length > 0) testimonialsData = rows
+  } catch {
+    // fallback to static
+  }
+
   return (
     <main className="min-h-screen">
       <Navbar credits={1500} />
@@ -115,7 +125,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Testimonials />
+      <Testimonials items={testimonialsData} />
       <PricingSection />
       <FAQ items={generalFaq} dark />
       <Footer />
