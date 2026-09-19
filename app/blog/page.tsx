@@ -6,7 +6,7 @@ import { Calendar, Clock, ArrowLeft } from 'lucide-react'
 export default function BlogPage() {
   return (
     <main className="min-h-screen">
-      <Navbar credits={1500} />
+      <Navbar />
 
       <section className="relative overflow-hidden">
         <div className="pointer-events-none absolute left-1/2 top-10 h-72 w-72 -translate-x-1/2 rounded-full bg-lavender/70 blur-3xl" />

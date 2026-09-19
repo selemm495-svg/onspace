@@ -32,7 +32,7 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen">
-      <Navbar credits={1500} />
+      <Navbar />
 
       {/* Hero */}
       <section className="relative overflow-hidden">

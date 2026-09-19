@@ -15,6 +15,7 @@ import {
 } from 'lucide-react'
 import { navItems } from '@/lib/data'
 import { cn } from '@/lib/utils'
+import { UserMenu } from '@/components/user-menu'
 
 const iconMap = {
   agentic: Sparkles,
@@ -36,7 +37,7 @@ export function Logo() {
   )
 }
 
-export function Navbar({ credits = 1500 }: { credits?: number }) {
+export function Navbar() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
 
@@ -80,14 +81,7 @@ export function Navbar({ credits = 1500 }: { credits?: number }) {
           >
             <Gift className="h-4.5 w-4.5" />
           </button>
-          <div className="flex items-center gap-1 rounded-full bg-muted px-2.5 py-1.5">
-            <span className="h-4 w-4 rounded-full bg-gradient-to-br from-violet to-fuchsia-400" />
-            <span className="text-sm font-bold text-foreground">{credits.toLocaleString('ar-EG')}</span>
-            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-violet text-white">
-              <Plus className="h-3 w-3" />
-            </span>
-          </div>
-          <span className="h-8 w-8 rounded-full bg-gradient-to-br from-violet via-fuchsia-500 to-orange-400 ring-2 ring-background" aria-label="حساب المستخدم" />
+          <UserMenu />
 
           <button
             aria-label="القائمة"

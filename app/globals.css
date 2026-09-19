@@ -123,3 +123,22 @@
 .animate-pop-in {
   animation: pop-in 0.16s ease-out;
 }
+
+.input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--input);
+  background: var(--background);
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.input:focus {
+  border-color: var(--violet);
+  box-shadow: 0 0 0 3px oklch(0.55 0.24 276 / 0.2);
+}
+.input:disabled {
+  opacity: 0.6;
+}

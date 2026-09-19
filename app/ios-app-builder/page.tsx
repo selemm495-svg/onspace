@@ -10,7 +10,7 @@ import { Smartphone } from 'lucide-react'
 export default async function IosPage() {
   return (
     <main className="min-h-screen">
-      <Navbar credits={1500} />
+      <Navbar />
 
       <section className="relative overflow-hidden">
         <div className="pointer-events-none absolute left-1/2 top-40 h-96 w-96 -translate-x-1/2 rounded-full bg-yellow-soft/60 blur-3xl" />

@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Tajawal } from 'next/font/google'
 import './globals.css'
+import { AuthProvider } from '@/components/auth-provider'
 
 const tajawal = Tajawal({
   subsets: ['arabic', 'latin'],
@@ -31,7 +32,9 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning className={`${tajawal.variable} bg-background`}>
       <body className="font-sans antialiased">
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

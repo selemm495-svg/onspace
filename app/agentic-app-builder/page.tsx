@@ -24,7 +24,7 @@ export default async function AgenticPage() {
 
   return (
     <main className="min-h-screen">
-      <Navbar credits={20} />
+      <Navbar />
 
       {/* Hero */}
       <section className="relative overflow-hidden">
