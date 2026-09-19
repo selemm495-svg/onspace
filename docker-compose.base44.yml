@@ -16,7 +16,7 @@ services:
   web:
     image: node:22
     working_dir: /app
-    command: sh -c "corepack enable && pnpm install --config.dangerouslyAllowAllBuilds=true; pnpm dev -H 0.0.0.0 -p 3000"
+    command: sh -c "corepack enable && pnpm install && pnpm dev -H 0.0.0.0 -p 3000"
     environment:
       - BASE44_PUBLIC_HOST_SUFFIX=${BASE44_PUBLIC_HOST_SUFFIX}
       - WATCHPACK_POLLING=true
